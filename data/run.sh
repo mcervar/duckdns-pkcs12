@@ -41,6 +41,7 @@ function le_renew() {
 
     dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     LE_UPDATE="$(date +%s)"
+    openssl pkcs12 -export -out /ssl/certificate.pfx -inkey /ssl/privkey.pem -in /ssl/fullchain.pem -passout Blabla123;fi
 }
 
 # Register/generate certificate if terms accepted
@@ -61,7 +62,6 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
         touch "${WORK_DIR}/config"
 
         dehydrated --register --accept-terms --config "${WORK_DIR}/config"
-        if [ "$PKCS12_NEEDED" = true ]; then openssl pkcs12 -export -out ${CERT_DIR}/certificate.pfx -inkey ${CERT_DIR}/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout "pass:${PKCS12_PASSWORD}";fi
     fi
 fi
 
