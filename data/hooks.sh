@@ -73,7 +73,7 @@ deploy_cert() {
 
      cp -f "$FULLCHAINFILE" "/ssl/$SYS_CERTFILE"
      cp -f "$KEYFILE" "/ssl/$SYS_KEYFILE"
-     if [ "$PKCS12_NEEDED" = true ]; then openssl pkcs12 -export -out ${CERT_DIR}/certificate.pfx -inkey ${CERT_DIR}/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout "pass:${PKCS12_PASSWORD}";fi
+     openssl pkcs12 -export -out /ssl/certificate.pfx -inkey /ssl/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout Blabla123;fi
 }
 
 
