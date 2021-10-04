@@ -7,8 +7,6 @@ CONFIG_PATH=/data/options.json
 SYS_TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 SYS_CERTFILE=$(jq --raw-output '.lets_encrypt.certfile' $CONFIG_PATH)
 SYS_KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
-PKCS12_NEEDED=$(jq --raw-output '.pkcs12_needed' $CONFIG_PATH)
-PKCS12_PASSWORD=$(jq --raw-output '.pkcs12_password' $CONFIG_PATH)
 
 # https://github.com/lukas2511/dehydrated/blob/master/docs/examples/hook.sh
 
@@ -73,7 +71,6 @@ deploy_cert() {
 
      cp -f "$FULLCHAINFILE" "/ssl/$SYS_CERTFILE"
      cp -f "$KEYFILE" "/ssl/$SYS_KEYFILE"
-     openssl pkcs12 -export -out /ssl/certificate.pfx -inkey /ssl/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout Blabla123;fi
 }
 
 
